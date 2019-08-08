@@ -18,3 +18,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 Suggests: 
     testthat
+URL: https://github.com/Rapporteket/raplog
+BugReports: https://github.com/Rapporteket/raplog/issues
