@@ -18,5 +18,3 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 Suggests: 
     testthat
-URL: https://github.com/areedv/raplog
-BugReports: https://github.com/areedv/raplog/issues
