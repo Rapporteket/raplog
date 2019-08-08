@@ -1,0 +1,20 @@
+Package: raplog
+Title: Log Use of Applications and Reports at Rapporteket
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Are",
+           family = "Edvardsen",
+           role = c("aut", "cre"),
+           email = "biorakel@gmail.com",
+           comment = c(ORCID = "0000-0002-5210-3656"))
+Description: Keeps record of acitivity initiated by users of Rapporteket such
+  as start of shiny sessions and single report requests. This package also
+  deals with file operations such as creation, archiving and deletion of log
+  files.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
+Suggests: 
+    testthat
