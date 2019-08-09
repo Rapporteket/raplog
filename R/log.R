@@ -127,6 +127,5 @@ repLogger <- function(session, msg = "No message provided",
                  parent_function=parent_function,
                  msg=msg))
   event <- makeLogRecord(content, format = "csv")
-  print(event)
   appendLog(event, name, target = "file", format = "csv")
 }
