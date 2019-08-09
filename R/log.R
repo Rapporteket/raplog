@@ -37,7 +37,7 @@ appendLog <- function(event, name, target, format) {
 #'
 #' @param content A named list of values to be logged
 #' @param format String defining the format of the log record. Supported
-#' values: 'json' (default)
+#' values: 'csv' (default)
 #'
 #' @return A formatted log entry
 #' @export
@@ -74,25 +74,30 @@ getSessionData <- function(session) {
 
 getSessionDataRep <- function(session) {
 
-  # for now, just re-use getSession data
-  #getSessionData(session)
-
-  # just for initial testing
-  list(
-    navn = "Are",
-    status = "lur"
-  )
+  # Currently not used
 }
 
-#' Title
+#' Logging at application level
 #'
-#' @param session
-#' @param msg
+#' To be used for logging at application level \emph{i.e.} when a shiny session
+#' is started.
 #'
-#' @return
+#' @param session Shiny session object to be used for getting user data.
+#' For testing and development purposes \code{session} can be replaced by
+#' \code{list()} in which case various config options might be used to provide
+#' something sensible
+#' @param msg String providing a user defined message to be added to the log
+#' record. Default value is 'No message provided'
+#'
+#' @return Returns nothing but calls a logging appender
 #' @export
 #'
 #' @examples
+#' \donttest{
+#' # Depend on the environment variable R_RAP_CONFIG_PATH being set
+#' appLogger(list())
+#' }
+#'
 appLogger <- function(session, msg = "No message provided") {
 
   name <- "appLog"
@@ -102,17 +107,31 @@ appLogger <- function(session, msg = "No message provided") {
 
 }
 
-#' Title
+
+#' Logging at report level
 #'
-#' @param session
-#' @param msg
-#' @param .topcall
-#' @param .topenv
+#' To be used for logging at report level, \emph{i.e.} each time a report is
+#' run. Calls to this function can be made from reactive enviroments within the
+#' shiny server function or from within the (report) functions used by the same
+#' reactive environments
 #'
-#' @return
+#' @inheritParams appLogger
+#' @param .topcall Parent call (if any) calling this function. Used to provide
+#' the function call with arguments. Default value is \code{sys.call(-1)}
+#' @param .topenv Name of the parent environment calling this function. Used to
+#' provide package name (\emph{i.e.} register) this function was called from.
+#' Default value is \code{parent.frame()}
+#'
+#' @return Returns nothing but calls a logging appender
 #' @export
 #'
 #' @examples
+#' \donttest{
+#' # Depend on the environment variable R_RAP_CONFIG_PATH being set
+#' repLogger(list())
+#' }
+
+
 repLogger <- function(session, msg = "No message provided",
                       .topcall = sys.call(-1), .topenv = parent.frame()) {
 
