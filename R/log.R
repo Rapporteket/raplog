@@ -23,7 +23,7 @@ appendLog <- function(event, name, target, format) {
         doColNames <- TRUE
       }
       write.table(event, file = file.path(path, name), append = doAppend,
-                col.names = doColNames, row.names = FALSE)
+                col.names = doColNames, row.names = FALSE, sep = ",")
     }
     #close(con)
   } else {
