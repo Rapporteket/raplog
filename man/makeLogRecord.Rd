@@ -4,7 +4,7 @@
 \alias{makeLogRecord}
 \title{Make a log record}
 \usage{
-makeLogRecord(content, format = "json")
+makeLogRecord(content, format = "csv")
 }
 \arguments{
 \item{content}{A named list of values to be logged}
