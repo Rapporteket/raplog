@@ -30,17 +30,6 @@ appendLog <- function(event, name, target, format) {
 
 }
 
-createArchive <- function() {
-
-}
-
-archiveLog <- function() {
-
-}
-
-cleanArchive <- function() {
-
-}
 
 #' Make a log record
 #'
@@ -95,18 +84,49 @@ getSessionDataRep <- function(session) {
   )
 }
 
+#' Title
+#'
+#' @param session
+#' @param msg
+#'
+#' @return
+#' @export
+#'
+#' @examples
 appLogger <- function(session, msg = "No message provided") {
 
   name <- "appLog"
-  content <- c(getSessionDataRep(list()), list(msg=msg))
+  content <- c(getSessionData(session), list(msg=msg))
   event <- makeLogRecord(content, format = "csv")
   appendLog(event, name, target = "file", format = "csv")
 
 }
 
-repLogger <- function(session, msg = "No message provided") {
+#' Title
+#'
+#' @param session
+#' @param msg
+#' @param .topcall
+#' @param .topenv
+#'
+#' @return
+#' @export
+#'
+#' @examples
+repLogger <- function(session, msg = "No message provided",
+                      .topcall = sys.call(-1), .topenv = parent.frame()) {
 
   name <- "reportLog"
-
-
+  parent_environment <- environmentName(topenv(.topenv))
+  parent_call <- deparse(.topcall)
+  parent_function <- deparse(.topcall[[1]])
+  content <- c(getSessionData(session),
+               list(
+                 parent_environment=parent_environment,
+                 parent_call=parent_call,
+                 parent_function=parent_function,
+                 msg=msg))
+  event <- makeLogRecord(content, format = "csv")
+  print(event)
+  appendLog(event, name, target = "file", format = "csv")
 }
