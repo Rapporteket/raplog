@@ -12,9 +12,6 @@ appendLog <- function(event, name, target, format) {
                   "defined!"))
     }
     name <- paste0(name, ".", format)
-    if (format == "json") {
-      write(event, file = file.path(path, name), append = TRUE)
-    }
     if (format == "csv") {
       doAppend <- TRUE
       doColNames <- FALSE
@@ -59,7 +56,7 @@ cleanArchive <- function() {
 #' @examples
 #' makeLogRecord(list(msg="This is a test"))
 
-makeLogRecord <- function(content, format = "json") {
+makeLogRecord <- function(content, format = "csv") {
 
   defaultEntries <- list(
     time = format(Sys.time(), "%Y-%m-%d %H:%M:%S")
@@ -67,9 +64,7 @@ makeLogRecord <- function(content, format = "json") {
 
   content <- c(defaultEntries, content)
 
-  if (format == "json") {
-    jsonlite::toJSON(content, auto_unbox = TRUE)
-  } else if (format == "csv") {
+  if (format == "csv") {
     as.data.frame(content)
   } else {
     stop(paste0("Format ", format, " is not supported. Event not logged!"))
