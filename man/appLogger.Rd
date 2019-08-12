@@ -2,13 +2,30 @@
 % Please edit documentation in R/log.R
 \name{appLogger}
 \alias{appLogger}
-\title{Title}
+\title{Logging at application level}
 \usage{
 appLogger(session, msg = "No message provided")
 }
 \arguments{
-\item{msg}{}
+\item{session}{Shiny session object to be used for getting user data.
+For testing and development purposes \code{session} can be replaced by
+\code{list()} in which case various config options might be used to provide
+something sensible}
+
+\item{msg}{String providing a user defined message to be added to the log
+record. Default value is 'No message provided'}
+}
+\value{
+Returns nothing but calls a logging appender
 }
 \description{
-Title
+To be used for logging at application level \emph{i.e.} when a shiny session
+is started.
+}
+\examples{
+\donttest{
+# Depend on the environment variable R_RAP_CONFIG_PATH being set
+appLogger(list())
+}
+
 }
