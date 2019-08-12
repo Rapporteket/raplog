@@ -137,13 +137,11 @@ repLogger <- function(session, msg = "No message provided",
   name <- "reportLog"
   parent_environment <- environmentName(topenv(.topenv))
   parent_call <- deparse(.topcall)
-  parent_function <- deparse(.topcall[[1]])
   content <- c(getSessionData(session),
                list(
-                 parent_environment=parent_environment,
-                 parent_call=parent_call,
-                 parent_function=parent_function,
-                 msg=msg))
+                 environment=parent_environment,
+                 call=parent_call,
+                 message=msg))
   event <- makeLogRecord(content, format = "csv")
   appendLog(event, name, target = "file", format = "csv")
 }
