@@ -1,8 +1,8 @@
 # raplog
 
 <!-- badges: start -->
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/Rapporteket/raplog?branch=master&svg=true)](https://ci.appveyor.com/project/Rapporteket/raplog)
 [![Travis build status](https://travis-ci.org/Rapporteket/raplog.svg?branch=master)](https://travis-ci.org/Rapporteket/raplog)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/Rapporteket/raplog?branch=master&svg=true)](https://ci.appveyor.com/project/Rapporteket/raplog)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
