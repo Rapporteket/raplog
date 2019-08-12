@@ -4,11 +4,14 @@ context("Logging")
 currentInstance <- Sys.getenv("R_RAP_INSTANCE")
 currentConfig <- Sys.getenv("R_RAP_CONFIG_PATH")
 
-conf <- rapbase::getConfig(fileName = "rapbaseConfig.yml")
+#conf <- rapbase::getConfig(fileName = "rapbaseConfig.yml")
 
 tempdir <- tempdir()
 
-file.copy(file.path(currentConfig, "rapbaseConfig.yml"), tempdir)
+#file.copy(file.path(currentConfig, "rapbaseConfig.yml"), tempdir)
+
+file.copy(system.file("rapbaseConfig.yml", package = "rapbase"), tempdir)
+
 
 Sys.setenv(R_RAP_INSTANCE="DEV")
 Sys.setenv(R_RAP_CONFIG_PATH=tempdir)
