@@ -22,7 +22,6 @@ appendLog <- function(event, name, target, format) {
       write.table(event, file = file.path(path, name), append = doAppend,
                 col.names = doColNames, row.names = FALSE, sep = ",")
     }
-    #close(con)
   } else {
     stop(paste0("Target ", target, " is not supported. ",
                 "Event was not appended!"))
