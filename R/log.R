@@ -100,7 +100,7 @@ getSessionDataRep <- function(session) {
 appLogger <- function(session, msg = "No message provided") {
 
   name <- "appLog"
-  content <- c(getSessionData(session), list(msg=msg))
+  content <- c(getSessionData(session), list(message=msg))
   event <- makeLogRecord(content, format = "csv")
   appendLog(event, name, target = "file", format = "csv")
 
