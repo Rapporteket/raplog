@@ -2,6 +2,25 @@ createLog <- function(name, target) {
 
 }
 
+#' Append a log record
+#'
+#' Append a record to the log. Normally, this function will not be called from
+#' outside this package
+#'
+#' @param event data.frame of one record holding the fields of whatever that
+#' is to be logged
+#' @param name String defining the name of the log
+#' @param target String defining where the log should go. Currently, 'file' is
+#' the only option
+#' @param format String defining the whatever format available given 'taget'.
+#' Currently, the only option here is 'csv'
+#'
+#' @return Provides a new record in the log. If the log does not exist a new
+#' one is created before appending the new record
+#' @export
+#'
+#' @importFrom utils write.table
+
 appendLog <- function(event, name, target, format) {
 
   if (target == "file") {
