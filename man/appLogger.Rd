@@ -2,7 +2,7 @@
 % Please edit documentation in R/log.R
 \name{appLogger}
 \alias{appLogger}
-\title{Logging at application level}
+\title{Log events at application level}
 \usage{
 appLogger(session, msg = "No message provided")
 }
@@ -21,6 +21,26 @@ Returns nothing but calls a logging appender
 \description{
 To be used for logging at application level \emph{i.e.} when a shiny session
 is started.
+}
+\details{
+The below fields will be appended to the application log, in the
+following order:
+\enumerate{
+\item \code{time}: date-time as event is logged as
+\code{format(time, "\%Y-\%m-\%d \%H:\%M:\%S")}
+\item \code{user}: username as found in the shiny session object
+\item \code{name}: full name of user as found in the shiny session object
+\item \code{group}: users group membership as provided by the shiny
+session object. Normally, this will correspond to the registry the user
+belongs to
+\item \code{role}: users role as provided by the shiny session object. Its
+value will depend on whatever is delivered by the autorization provider,
+but for OpenQReg registires 'LU' (local user) and 'SC' (system
+coordinator) are typical values
+\item \code{resh_id}: the organization id of the current user as provided
+by the shiny session object
+\item message: an optional message defined as argument to the function
+}
 }
 \examples{
 \donttest{
