@@ -95,13 +95,16 @@ getSessionDataRep <- function(session) {
   # Currently not used
 }
 
-#' Log events at application level
+
+#' Log user events in shiny applications at Rapporteket
 #'
-#' To be used for logging at application level \emph{i.e.} when a shiny session
-#' is started.
+#' To be used for logging at application level (\emph{i.e.} when a shiny
+#' session is started) or at report level (\emph{i.e.} each time a report is
+#' run). Logging of single report events should be made from reactive
+#' enviroments within the shiny server function or from within the (report)
+#' functions used by the same reactive environments.
 #'
-#' The below fields will be appended to the application log, in the
-#' following order:
+#' The below fields will be appended to the log, in the following order:
 #' \enumerate{
 #'   \item \code{time}: date-time as event is logged as
 #'     \code{format(time, "\%Y-\%m-\%d \%H:\%M:\%S")}
@@ -116,7 +119,47 @@ getSessionDataRep <- function(session) {
 #'     coordinator) are typical values
 #'   \item \code{resh_id}: the organization id of the current user as provided
 #'     by the shiny session object
+#'   \item \code{environment}: environment from where the logger function was
+#'     called (only provided by \code{repLogger()})
+#'   \item \code{call}: function (with arguments) from where the logger was
+#'     called (only provided by \code{repLogger()})
 #'   \item message: an optional message defined as argument to the function
+#' }
+#'
+#' @note Pseudo code of how \code{appLogger()} may be implemented:
+#' \preformatted{
+#' library(shiny)
+#' library(raplog)
+#'
+#' server <- function(input, output, session) {
+#'   raplog::appLogger(session, msg = "Smerteregisteret: starting shiny app")
+#'   ...
+#' }
+#' }
+#' Pseudo code on how \code{repLogger()} can be implemented as part of a
+#' function in a reactive (shiny) context. First, this is an example of the
+#' shiny server function with the (reactive) function \code{renderPlot()}
+#' calling a function that provides a histogram:
+#' \preformatted{
+#' library(shiny)
+#' library(raplog)
+#'
+#' server <- function(input, output, session) {
+#'   ...
+#'   output$hist <- renderPlot({
+#'     makeHist(data, var = input$var, bins = input$bins, session = session)
+#'   })
+#'   ...
+#' }
+#' } Then, logging is called within the function \code{makeHist()}:
+#' \preformatted{
+#' makeHist <- function(data, var, bins, ...) {
+#'
+#'   if ("session" \%in\% names(list(...))) {
+#'     raplog::repLogger(session = session, msg = "Providing histogram")
+#'   }
+#'   ...
+#' }
 #' }
 #'
 #' @param session Shiny session object to be used for getting user data.
@@ -125,18 +168,27 @@ getSessionDataRep <- function(session) {
 #' something sensible
 #' @param msg String providing a user defined message to be added to the log
 #' record. Default value is 'No message provided'
+#' @param .topcall Parent call (if any) calling this function. Used to provide
+#' the function call with arguments. Default value is \code{sys.call(-1)}
+#' @param .topenv Name of the parent environment calling this function. Used to
+#' provide package name (\emph{i.e.} register) this function was called from.
+#' Default value is \code{parent.frame()}
 #'
-#'
+#' @name logger
+#' @aliases appLogger repLogger
 #'
 #' @return Returns nothing but calls a logging appender
+NULL
+
+
+#' @rdname logger
 #' @export
-#'
 #' @examples
 #' \donttest{
 #' # Depend on the environment variable R_RAP_CONFIG_PATH being set
 #' appLogger(list())
 #' }
-#'
+
 appLogger <- function(session, msg = "No message provided") {
 
   name <- "appLog"
@@ -147,23 +199,8 @@ appLogger <- function(session, msg = "No message provided") {
 }
 
 
-#' Logging at report level
-#'
-#' To be used for logging at report level, \emph{i.e.} each time a report is
-#' run. Calls to this function can be made from reactive enviroments within the
-#' shiny server function or from within the (report) functions used by the same
-#' reactive environments
-#'
-#' @inheritParams appLogger
-#' @param .topcall Parent call (if any) calling this function. Used to provide
-#' the function call with arguments. Default value is \code{sys.call(-1)}
-#' @param .topenv Name of the parent environment calling this function. Used to
-#' provide package name (\emph{i.e.} register) this function was called from.
-#' Default value is \code{parent.frame()}
-#'
-#' @return Returns nothing but calls a logging appender
+#' @rdname logger
 #' @export
-#'
 #' @examples
 #' \donttest{
 #' # Depend on the environment variable R_RAP_CONFIG_PATH being set
