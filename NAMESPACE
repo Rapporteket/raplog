@@ -2,6 +2,9 @@
 
 export(appLogger)
 export(appendLog)
+export(archiveLog)
+export(cleanArchive)
+export(createArchive)
 export(makeLogRecord)
 export(repLogger)
 importFrom(utils,write.table)
