@@ -73,7 +73,8 @@ server <- function(input, output, session) {
 }
 Pseudo code on how \code{repLogger()} can be implemented as part of a
 function in a reactive (shiny) context. First, this is an example of the
-shiny server function with the (reactive) function \code{renderPlot()}:
+shiny server function with the (reactive) function \code{renderPlot()}
+calling a function that provides a histogram:
 \preformatted{
 library(shiny)
 library(raplog)
