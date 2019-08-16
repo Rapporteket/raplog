@@ -23,4 +23,5 @@ URL: https://github.com/Rapporteket/raplog
 BugReports: https://github.com/Rapporteket/raplog/issues
 Imports: 
     utils,
-    rapbase
+    rapbase,
+    rio
