@@ -7,7 +7,7 @@
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-raplog provides logging for registries and underlying reports at Rapporteket. The purpose of raplog is NOT logging of how your code works (_e.g._ for code debugging) but rather the use of reports (statistics and auditing).
+raplog provides logging for registries and underlying reports at Rapporteket. The purpose of raplog is NOT logging of how your code works (_e.g._ for code debugging) but rather the use of reports (statistics and auditing). See also the [raplog site](https://rapporteket.github.io/raplog/)
 
 ## Installation
 
