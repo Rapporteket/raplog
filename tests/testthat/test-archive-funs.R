@@ -1,4 +1,4 @@
-context(archiving)
+context("archiving")
 
 tempdir <- tempdir()
 
@@ -7,7 +7,7 @@ test_that("error is provided when archive dir already exists", {
 })
 
 test_that("an archive dir can be created", {
-  expect_true(createArchive(archivePath = file.path(tempdir, "testDir")))
+  expect_true(createArchive(archivePath = tempfile()))
 })
 
 test_that("error is provided when archive dir does not exist", {
@@ -47,3 +47,4 @@ test_that("function silently cleans...", {
 test_that("...and that file is actually removed", {
   expect_false(file.exists(file.path(tempdir, "mtcars.rda")))
 })
+
