@@ -32,12 +32,14 @@ as helpers within the raplog package.
 }
 \examples{
 # Create an archive
-createArchive(tempdir())
+createArchive(archivePath = tempfile())
 
 # Archive a file under the same directory
-fileName <- tempfile()
-archiveLog(archivePath = basename(fileName), logPath = basename(fileName),
-logs = c(fileName))
+fileName <- paste0(tempfile(), ".csv")
+file.create(fileName)
+write.csv(mtcars, fileName)
+archiveLog(archivePath = dirname(fileName), logPath = dirname(fileName),
+logs = c(basename(fileName)))
 
 # Do not delete any files
 cleanArchive(archivePath = tempdir())

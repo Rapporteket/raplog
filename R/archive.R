@@ -21,7 +21,7 @@ NULL
 #' @export
 #' @examples
 #' # Create an archive
-#' createArchive(tempdir())
+#' createArchive(archivePath = tempfile())
 #'
 
 createArchive <- function(archivePath) {
@@ -39,9 +39,11 @@ createArchive <- function(archivePath) {
 #' @export
 #' @examples
 #' # Archive a file under the same directory
-#' fileName <- tempfile()
-#' archiveLog(archivePath = basename(fileName), logPath = basename(fileName),
-#' logs = c(fileName))
+#' fileName <- paste0(tempfile(), ".csv")
+#' file.create(fileName)
+#' write.csv(mtcars, fileName)
+#' archiveLog(archivePath = dirname(fileName), logPath = dirname(fileName),
+#' logs = c(basename(fileName)))
 #'
 
 archiveLog <- function(archivePath, logPath,
