@@ -11,6 +11,7 @@
 #'
 NULL
 
+
 #' @rdname archive
 #' @export
 createArchive <- function(archivePath) {
@@ -22,6 +23,7 @@ createArchive <- function(archivePath) {
     dir.create(archivePath)
   }
 }
+
 
 #' @rdname archive
 #' @export
@@ -44,11 +46,12 @@ archiveLog <- function(archivePath, logPath,
   }
 
   in_file <- file.path(logPath, logs)
-  out_file <- file.path(archivePath, paste0(tools::file_path_sans_ext(logs),
-                                          ".rda"))
+  out_file <- file.path(archivePath,
+                        paste0(tools::file_path_sans_ext(logs), ".rda"))
   mapply(rio::convert, in_file, out_file)
 
 }
+
 
 #' @rdname archive
 #' @export
