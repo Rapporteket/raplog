@@ -5,17 +5,41 @@
 \alias{createArchive}
 \alias{archiveLog}
 \alias{cleanArchive}
-\title{Archive functions}
+\title{Archive functions for logs at Rapporteket}
 \usage{
 createArchive(archivePath)
 
-archiveLog(archivePath, logPath, logs = c("appLog", "repLog"))
+archiveLog(archivePath, logPath, logs = c("appLog.csv", "reportLog.csv"))
 
-cleanArchive(archivePath, eolDays)
+cleanArchive(archivePath, eolDays = -1, pattern = ".rda$")
 }
 \arguments{
-\item{archivePath}{}
+\item{archivePath}{String providing the path to the archive directory}
+
+\item{logPath}{String providing the path to the log directory}
+
+\item{logs}{String vector defining the log file names. Defaults to
+\code{c("appLog.csv", "reportLog.csv")}}
+
+\item{eolDays}{Integer age in days definig archive file end-of-life. When
+\code{eoldays < 0} no archive files will be deleted. Default value is -1}
+
+\item{pattern}{String regexp defining file name pattern. Defaults to ".rda$"}
 }
 \description{
-Archive functions
+Functions to manage archiving of logs at Rapporteket. To be applied mainly
+as helpers within the raplog package.
+}
+\examples{
+# Create an archive
+createArchive(tempdir())
+
+# Archive a file under the same directory
+fileName <- tempfile()
+archiveLog(archivePath = basename(fileName), logPath = basename(fileName),
+logs = c(fileName))
+
+# Do not delete any files
+cleanArchive(archivePath = tempdir())
+
 }

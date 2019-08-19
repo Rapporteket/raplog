@@ -1,10 +1,15 @@
-#' Archive functions
+#' Archive functions for logs at Rapporteket
 #'
-#' @param archivePath
-#' @param logPath
-#' @param logs
-#' @param eolDays
-#' @param pattern
+#' Functions to manage archiving of logs at Rapporteket. To be applied mainly
+#' as helpers within the raplog package.
+#'
+#' @param archivePath String providing the path to the archive directory
+#' @param logPath String providing the path to the log directory
+#' @param logs String vector defining the log file names. Defaults to
+#' \code{c("appLog.csv", "reportLog.csv")}
+#' @param eolDays Integer age in days definig archive file end-of-life. When
+#' \code{eoldays < 0} no archive files will be deleted. Default value is -1
+#' @param pattern String regexp defining file name pattern. Defaults to ".rda$"
 #'
 #' @name archive
 #' @aliases createArchive archiveLog cleanArchive
@@ -14,6 +19,11 @@ NULL
 
 #' @rdname archive
 #' @export
+#' @examples
+#' # Create an archive
+#' createArchive(tempdir())
+#'
+
 createArchive <- function(archivePath) {
 
   if (dir.exists(archivePath)) {
@@ -27,8 +37,15 @@ createArchive <- function(archivePath) {
 
 #' @rdname archive
 #' @export
+#' @examples
+#' # Archive a file under the same directory
+#' fileName <- tempfile()
+#' archiveLog(archivePath = basename(fileName), logPath = basename(fileName),
+#' logs = c(fileName))
+#'
+
 archiveLog <- function(archivePath, logPath,
-                       logs = c("appLog.csv", "repLog.csv")) {
+                       logs = c("appLog.csv", "reportLog.csv")) {
 
   if (!dir.exists(archivePath)) {
     stop(paste0("Got '", archivePath, "' as target archive directory, ",
@@ -55,6 +72,11 @@ archiveLog <- function(archivePath, logPath,
 
 #' @rdname archive
 #' @export
+#' @examples
+#' # Do not delete any files
+#' cleanArchive(archivePath = tempdir())
+#'
+
 cleanArchive <- function(archivePath, eolDays = -1, pattern = ".rda$") {
 
   if (eolDays == -1) {
