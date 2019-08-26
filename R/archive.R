@@ -9,10 +9,12 @@
 #' \code{c("appLog.csv", "reportLog.csv")}
 #' @param eolDays Integer age in days definig archive file end-of-life. When
 #' \code{eoldays < 0} no archive files will be deleted. Default value is -1
+#' @param overSize Integer size in bytes from where larger files will be listed
+#' as candidates for archiving. Default value set to 1 Mb (1024 * 1000)
 #' @param pattern String regexp defining file name pattern. Defaults to ".rda$"
 #'
 #' @name archive
-#' @aliases createArchive archiveLog cleanArchive
+#' @aliases createArchive logsOverSize archiveLog cleanArchive
 #'
 NULL
 
@@ -31,6 +33,31 @@ createArchive <- function(archivePath) {
                 "You can't make me overwrite!"))
   } else {
     dir.create(archivePath)
+  }
+}
+
+
+#' @rdname archive
+#' @return Character vector of files candidates for archiving
+#' @export
+#' @examples
+#' # List all files (with alphanumeric names) larger than 1 Kb in tempdir()
+#' logsOverSize(archivePath = tempdir(), overSize = 1000,
+#' pattern = "^[1-9a-zA-Z]")
+#'
+
+logsOverSize <- function(archivePath, overSize = 1024*1000, pattern = ".rda$") {
+
+  files <- file.info(list.files(archivePath, pattern = pattern,
+                                full.names = TRUE))
+
+  if (dim(files)[1] < 1) {
+    return(character())
+  } else {
+    # remove oversized
+    files <- rownames(files)[files[, "size"] > overSize]
+    # remove dirs (if any)
+    files[!file.info(files)$isdir]
   }
 }
 
