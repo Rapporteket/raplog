@@ -92,8 +92,11 @@ archiveLog <- function(archivePath, logPath,
   }
 
   in_file <- file.path(logPath, logs)
+  # add time tag to archived files also
   out_file <- file.path(archivePath,
-                        paste0(tools::file_path_sans_ext(logs), ".rda"))
+                        paste0(format(Sys.time(), "%Y%m%d%H%M%S"),
+                               tools::file_path_sans_ext(logs),
+                               ".rda"))
   mapply(rio::convert, in_file, out_file)
 
 }
