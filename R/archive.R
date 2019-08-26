@@ -76,6 +76,11 @@ logsOverSize <- function(archivePath, overSize = 1024*1000, pattern = ".rda$") {
 archiveLog <- function(archivePath, logPath,
                        logs = c("appLog.csv", "reportLog.csv")) {
 
+  if (length(logs) < 1) {
+    print("Got no files to archive. Exiting")
+    return(NULL)
+  }
+
   if (!dir.exists(archivePath)) {
     stop(paste0("Got '", archivePath, "' as target archive directory, ",
                 "but it does not exist. Cannot ",
