@@ -50,6 +50,9 @@ test_that("nothing will be appended if (file) format is not recognized", {
   expect_error(appendLog(event=data.frame(foo="bar"), name="", target="file", format="a4"))
 })
 
+test_that("error is provided when target is not supported", {
+  expect_error(appendLog(event=data.frame(foo="bar"), name="", target="moon", format="a4"))
+})
 
 
 # Restore instance
