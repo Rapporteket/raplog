@@ -42,8 +42,11 @@ test_that("function silently archives...", {
                            logs = logs))
 })
 
+# now, since we time tagged the archived file, get its name
+archivedFile <- list.files(path = tempdir, pattern = "mtcars.rda$")
+
 test_that("...and that archive actually exists", {
-  expect_true(file.exists(file.path(tempdir, "mtcars.rda")))
+  expect_true(file.exists(file.path(tempdir, archivedFile)))
 })
 
 test_that("no cleaning is performed when eol is set to 0", {
