@@ -27,6 +27,16 @@ test_that("error is provided when log files does not exixt", {
 logs <- c("mtcars.csv")
 rio::export(mtcars, file.path(tempdir, logs))
 
+test_that("an none-existing oversized log returns an empty string", {
+  expect_equal(logsOverSize(archivePath = tempdir, overSize = 1,
+                            pattern = "not_existing_at_all.csv"), character())
+})
+
+test_that("an oversized log can be detected", {
+  expect_equal(logsOverSize(archivePath = tempdir, overSize = 1,
+                            pattern = ".csv$"), file.path(tempdir, logs))
+})
+
 test_that("function silently archives...", {
   expect_silent(archiveLog(archivePath = tempdir, logPath = tempdir,
                            logs = logs))
