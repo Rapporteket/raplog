@@ -68,8 +68,8 @@ logsOverSize <- function(logPath, overSize = 1024*1000, pattern = ".rda$") {
   } else {
     # keep only oversized in list
     files <- rownames(files)[files[, "size"] > overSize]
-    # remove dirs (if any) from list
-    files[!file.info(files)$isdir]
+    # remove dirs (if any) from list and return basename
+    basename(files[!file.info(files)$isdir])
   }
 }
 

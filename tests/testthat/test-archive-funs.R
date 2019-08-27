@@ -34,7 +34,7 @@ test_that("an none-existing oversized log returns character()", {
 
 test_that("an oversized log can be detected", {
   expect_equal(logsOverSize(logPath = tempdir, overSize = 1,
-                            pattern = ".csv$"), file.path(tempdir, logs))
+                            pattern = ".csv$"), logs)
 })
 
 test_that("nothing is archived when list of logs is empty", {
