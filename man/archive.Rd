@@ -10,7 +10,7 @@
 \usage{
 createArchive(archivePath)
 
-logsOverSize(logPath, overSize = 1024 * 1000, pattern = ".rda$")
+logsOverSize(logPath, overSize = 1024 * 1000, pattern = ".csv$")
 
 archiveLog(archivePath, logPath, logs = c("appLog.csv", "reportLog.csv"))
 
@@ -24,7 +24,7 @@ cleanArchive(archivePath, eolDays = -1, pattern = ".rda$")
 \item{overSize}{Integer size in bytes from where larger files will be listed
 as candidates for archiving. Default value set to 1 Mb (1024 * 1000)}
 
-\item{pattern}{String regexp defining file name pattern. Defaults to ".rda$"}
+\item{pattern}{String regexp defining file name pattern}
 
 \item{logs}{String vector defining the log file names. Defaults to
 \code{c("appLog.csv", "reportLog.csv")}}

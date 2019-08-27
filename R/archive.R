@@ -23,7 +23,7 @@
 #' \code{eoldays < 0} no archive files will be deleted. Default value is -1
 #' @param overSize Integer size in bytes from where larger files will be listed
 #' as candidates for archiving. Default value set to 1 Mb (1024 * 1000)
-#' @param pattern String regexp defining file name pattern. Defaults to ".rda$"
+#' @param pattern String regexp defining file name pattern
 #'
 #' @name archive
 #' @aliases createArchive logsOverSize archiveLog cleanArchive
@@ -58,7 +58,7 @@ createArchive <- function(archivePath) {
 #' pattern = "^[1-9a-zA-Z]")
 #'
 
-logsOverSize <- function(logPath, overSize = 1024*1000, pattern = ".rda$") {
+logsOverSize <- function(logPath, overSize = 1024*1000, pattern = ".csv$") {
 
   files <- file.info(list.files(logPath, pattern = pattern,
                                 full.names = TRUE))
