@@ -213,7 +213,7 @@ repLogger <- function(session, msg = "No message provided",
 
   name <- "reportLog"
   parent_environment <- environmentName(topenv(.topenv))
-  parent_call <- deparse(.topcall, width.cutoff = 80L, nlines = 1L)
+  parent_call <- deparse(.topcall, width.cutoff = 160L, nlines = 1L)
   content <- c(getSessionData(session),
                list(
                  environment=parent_environment,
