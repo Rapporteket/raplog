@@ -46,6 +46,10 @@ test_that("function silently archives...", {
                            logs = logs))
 })
 
+test_that("source log was actually removed when archiving", {
+  expect_false(file.exists(logs))
+})
+
 # now, since we time tagged the archived file, get its name
 archivedFile <- list.files(path = tempdir, pattern = "mtcars.rda$")
 
