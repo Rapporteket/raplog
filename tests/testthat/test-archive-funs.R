@@ -28,12 +28,12 @@ logs <- c("mtcars.csv")
 rio::export(mtcars, file.path(tempdir, logs))
 
 test_that("an none-existing oversized log returns character()", {
-  expect_equal(logsOverSize(archivePath = tempdir, overSize = 1,
+  expect_equal(logsOverSize(logPath = tempdir, overSize = 1,
                             pattern = "not_existing_at_all.csv"), character())
 })
 
 test_that("an oversized log can be detected", {
-  expect_equal(logsOverSize(archivePath = tempdir, overSize = 1,
+  expect_equal(logsOverSize(logPath = tempdir, overSize = 1,
                             pattern = ".csv$"), file.path(tempdir, logs))
 })
 
