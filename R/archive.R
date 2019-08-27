@@ -3,6 +3,18 @@
 #' Functions to manage archiving of logs at Rapporteket. To be applied mainly
 #' as helpers within the raplog package.
 #'
+#' \code{crateArchive} simply creates a directory for the archived files to
+#' live in.
+#'
+#' \code{logsOverSize} provides a character vector of relevant files
+#' for archiving based on the given size limit and file name pattern.
+#'
+#' \code{archiveLog} do the actual archiving and deletes the source log files
+#' after the archive files where sucessfully created.
+#'
+#' \code{cleanArchive} deletes files from the archive as their days are
+#' numbered.
+#'
 #' @param archivePath String providing the path to the archive directory
 #' @param logPath String providing the path to the log directory
 #' @param logs String vector defining the log file names. Defaults to

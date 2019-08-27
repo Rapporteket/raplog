@@ -10,7 +10,7 @@
 \usage{
 createArchive(archivePath)
 
-logsOverSize(archivePath, overSize = 1024 * 1000, pattern = ".rda$")
+logsOverSize(logPath, overSize = 1024 * 1000, pattern = ".rda$")
 
 archiveLog(archivePath, logPath, logs = c("appLog.csv", "reportLog.csv"))
 
@@ -19,12 +19,12 @@ cleanArchive(archivePath, eolDays = -1, pattern = ".rda$")
 \arguments{
 \item{archivePath}{String providing the path to the archive directory}
 
+\item{logPath}{String providing the path to the log directory}
+
 \item{overSize}{Integer size in bytes from where larger files will be listed
 as candidates for archiving. Default value set to 1 Mb (1024 * 1000)}
 
 \item{pattern}{String regexp defining file name pattern. Defaults to ".rda$"}
-
-\item{logPath}{String providing the path to the log directory}
 
 \item{logs}{String vector defining the log file names. Defaults to
 \code{c("appLog.csv", "reportLog.csv")}}
@@ -39,12 +39,25 @@ Character vector of files candidates for archiving
 Functions to manage archiving of logs at Rapporteket. To be applied mainly
 as helpers within the raplog package.
 }
+\details{
+\code{crateArchive} simply creates a directory for the archived files to
+live in.
+
+\code{logsOverSize} provides a character vector of relevant files
+for archiving based on the given size limit and file name pattern.
+
+\code{archiveLog} do the actual archiving and deletes the source log files
+after the archive files where sucessfully created.
+
+\code{cleanArchive} deletes files from the archive as their days are
+numbered.
+}
 \examples{
 # Create an archive
 createArchive(archivePath = tempfile())
 
 # List all files (with alphanumeric names) larger than 1 Kb in tempdir()
-logsOverSize(archivePath = tempdir(), overSize = 1000,
+logsOverSize(logPath = tempdir(), overSize = 1024,
 pattern = "^[1-9a-zA-Z]")
 
 # Archive a file under the same directory
