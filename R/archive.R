@@ -42,21 +42,21 @@ createArchive <- function(archivePath) {
 #' @export
 #' @examples
 #' # List all files (with alphanumeric names) larger than 1 Kb in tempdir()
-#' logsOverSize(archivePath = tempdir(), overSize = 1000,
+#' logsOverSize(logPath = tempdir(), overSize = 1024,
 #' pattern = "^[1-9a-zA-Z]")
 #'
 
-logsOverSize <- function(archivePath, overSize = 1024*1000, pattern = ".rda$") {
+logsOverSize <- function(logPath, overSize = 1024*1000, pattern = ".rda$") {
 
-  files <- file.info(list.files(archivePath, pattern = pattern,
+  files <- file.info(list.files(logPath, pattern = pattern,
                                 full.names = TRUE))
 
   if (dim(files)[1] < 1) {
     return(character())
   } else {
-    # remove oversized
+    # keep only oversized in list
     files <- rownames(files)[files[, "size"] > overSize]
-    # remove dirs (if any)
+    # remove dirs (if any) from list
     files[!file.info(files)$isdir]
   }
 }
@@ -103,6 +103,16 @@ archiveLog <- function(archivePath, logPath,
                                tools::file_path_sans_ext(logs),
                                ".rda"))
   mapply(rio::convert, in_file, out_file)
+
+  # make sure archived files exists before deleting logs
+  ok <- file.exists(out_file)
+  if (all(ok)) {
+    file.remove(in_file)
+  } else {
+    warning(paste0("Something went wrong archiving the following file(s): ",
+                  out_file[!ok], ". Please check! No log files where deleted.")
+            )
+  }
 
 }
 
