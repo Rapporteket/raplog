@@ -23,5 +23,6 @@ URL: https://github.com/Rapporteket/raplog
 BugReports: https://github.com/Rapporteket/raplog/issues
 Imports: 
     utils,
-    rapbase,
     rio
+Remotes:
+    Rapporteket/rapbase@b31a399
