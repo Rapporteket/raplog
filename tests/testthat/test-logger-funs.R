@@ -1,4 +1,4 @@
-context("Logging")
+context("logging")
 
 # store current instance and prepare
 currentInstance <- Sys.getenv("R_RAP_INSTANCE")
