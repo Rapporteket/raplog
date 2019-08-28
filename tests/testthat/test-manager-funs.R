@@ -16,10 +16,9 @@ Sys.setenv(R_RAP_CONFIG_PATH=tempdir)
 
 logs <- c("mtcars.csv")
 rio::export(mtcars, file.path(tempdir, logs))
+raplogManager()
 
-tmp <- raplogManager()
-
-test_that("for now, jsut that archiveDir is created", {raplogManager()
+test_that("for now, just that archiveDir is created", {
   expect_true(dir.exists(file.path(tempdir, archiveDir)))
 })
 
