@@ -50,7 +50,6 @@ createArchive <- function(archivePath) {
 
 
 #' @rdname archive
-#' @return Character vector of files candidates for archiving
 #' @export
 #' @examples
 #' # List all files (with alphanumeric names) larger than 1 Kb in tempdir()

@@ -32,9 +32,6 @@ as candidates for archiving. Default value set to 1 Mb (1024 * 1000)}
 \item{eolDays}{Integer age in days definig archive file end-of-life. When
 \code{eoldays < 0} no archive files will be deleted. Default value is -1}
 }
-\value{
-Character vector of files candidates for archiving
-}
 \description{
 Functions to manage archiving of logs at Rapporteket. To be applied mainly
 as helpers within the raplog package.
