@@ -10,7 +10,8 @@
 #' for archiving based on the given size limit and file name pattern.
 #'
 #' \code{archiveLog} do the actual archiving and deletes the source log files
-#' after the archive files where sucessfully created.
+#' after the archive files where sucessfully created. Returns prematurely NULL
+#' if no log file(s) provided
 #'
 #' \code{cleanArchive} deletes files from the archive as their days are
 #' numbered.
@@ -88,7 +89,6 @@ archiveLog <- function(archivePath, logPath,
                        logs = c("appLog.csv", "reportLog.csv")) {
 
   if (length(logs) < 1) {
-    print("Got no files to archive. Exiting")
     return(NULL)
   }
 
