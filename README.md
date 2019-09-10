@@ -1,4 +1,4 @@
-# raplog
+# raplog <img src="man/figures/raplogLogo.svg" align="right" height="150" />
 
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.org/Rapporteket/raplog.svg?branch=master)](https://travis-ci.org/Rapporteket/raplog)
