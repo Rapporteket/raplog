@@ -82,7 +82,7 @@ From the last example above the log states that it was called from ```renderPlot
 makeHist <- function(regData, var, bins, ...) {
   
   if ("session" %in% names(list(...))) {
-    raplog::repLogger(session = session, msg = "Providing histogram")
+    raplog::repLogger(session = list(...)[["session"]], msg = "Providing histogram")
   }
   ...
 }
