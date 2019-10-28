@@ -27,6 +27,11 @@ test_that("logging is performed at report level", {
   expect_true(file.exists(file.path(tempdir, "reportLog.csv")))
 })
 
+test_that("logging can be made by (automated) reports outdise session", {
+  expect_silent(subLogger(author = "Rapporteket", registryName = "rapbase",
+                          reshId = "999999"))
+})
+
 test_that("formatter returns error upon non-existing format", {
   expect_error(makeLogRecord(content = list(), format = "a4"))
 })
