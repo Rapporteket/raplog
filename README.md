@@ -4,7 +4,7 @@
 [![Travis build status](https://travis-ci.org/Rapporteket/raplog.svg?branch=master)](https://travis-ci.org/Rapporteket/raplog)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/Rapporteket/raplog?branch=master&svg=true)](https://ci.appveyor.com/project/Rapporteket/raplog)
 [![Codecov test coverage](https://codecov.io/gh/Rapporteket/raplog/branch/master/graph/badge.svg)](https://codecov.io/gh/Rapporteket/raplog?branch=master)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
 raplog provides logging for registries and underlying reports at Rapporteket. The purpose of raplog is NOT logging of how your code works (_e.g._ for code debugging) but rather the use of reports (statistics and auditing). See also the [raplog site](https://rapporteket.github.io/raplog/)
