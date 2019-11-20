@@ -34,7 +34,8 @@ appendLog <- function(event, name, target, format) {
     if (format == "csv") {
       doAppend <- TRUE
       doColNames <- FALSE
-      if (!file.exists(file.path(path, name))) {
+      if (!file.exists(file.path(path, name)) ||
+          file.size(file.path(path, name)) == 0) {
         doAppend <- FALSE
         doColNames <- TRUE
       }
