@@ -4,11 +4,15 @@
 \alias{logger}
 \alias{appLogger}
 \alias{repLogger}
+\alias{subLogger}
 \title{Log user events in shiny applications at Rapporteket}
 \usage{
 appLogger(session, msg = "No message provided")
 
 repLogger(session, msg = "No message provided",
+  .topcall = sys.call(-1), .topenv = parent.frame())
+
+subLogger(author, registryName, reshId, msg = "No message provided",
   .topcall = sys.call(-1), .topenv = parent.frame())
 }
 \arguments{
@@ -26,6 +30,16 @@ the function call with arguments. Default value is \code{sys.call(-1)}}
 \item{.topenv}{Name of the parent environment calling this function. Used to
 provide package name (\emph{i.e.} register) this function was called from.
 Default value is \code{parent.frame()}}
+
+\item{author}{String providing author of a report. Only used for automated
+subscription reports that are run outside a shiny session.}
+
+\item{registryName}{String providing registry name. Only used for automated
+subscription reports that are run outside a shiny session.}
+
+\item{reshId}{String providing the organization id of the (subscription)
+report author. Only used for automated subscription reports that are run
+outside a shiny session.}
 }
 \value{
 Returns nothing but calls a logging appender
@@ -91,7 +105,7 @@ server <- function(input, output, session) {
 makeHist <- function(data, var, bins, ...) {
 
   if ("session" \%in\% names(list(...))) {
-    raplog::repLogger(session = session, msg = "Providing histogram")
+    raplog::repLogger(session = list(...)[["session"]], msg = "Providing histogram")
   }
   ...
 }
@@ -105,5 +119,9 @@ appLogger(list())
 \donttest{
 # Depend on the environment variable R_RAP_CONFIG_PATH being set
 repLogger(list())
+}
+\donttest{
+# Depend on the environment variable R_RAP_CONFIG_PATH being set
+subLogger(author = "Rapporteket", registryName = "rapbase", reshId = "999999")
 }
 }
