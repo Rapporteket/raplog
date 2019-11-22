@@ -14,6 +14,7 @@ Sys.setenv(R_RAP_INSTANCE="DEV")
 Sys.setenv(R_RAP_CONFIG_PATH=tempdir)
 
 session <- list()
+attr(session, "class") <- "ShinySession"
 
 
 
