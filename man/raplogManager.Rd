@@ -4,7 +4,14 @@
 \alias{raplogManager}
 \title{Management of shiny application and report logging at Rapporteket}
 \usage{
-raplogManager()
+raplogManager(overSize = 1024 * 1000)
+}
+\arguments{
+\item{overSize}{Integer size in bytes from where larger files will be listed
+as candidates for archiving. Not used by this function \emph{per se} but
+rather passed on to \code{logsOverSize()}. Normally, its value does not need
+to be set but may be convenient in rare cases (such as full scale tests).
+Default value set to 1 Mb (1024 * 1000)}
 }
 \value{
 Silently exits after successful file operations
