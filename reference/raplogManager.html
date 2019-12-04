@@ -131,8 +131,20 @@ from a scheduler (<em>e.g.</em> chron) directly or as part of a process chain
 initiated by a scheduler</p>
     </div>
 
-    <pre class="usage"><span class='fu'>raplogManager</span>()</pre>
+    <pre class="usage"><span class='fu'>raplogManager</span>(<span class='kw'>overSize</span> <span class='kw'>=</span> <span class='fl'>1024</span> * <span class='fl'>1000</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>overSize</th>
+      <td><p>Integer size in bytes from where larger files will be listed
+as candidates for archiving. Not used by this function <em>per se</em> but
+rather passed on to <code><a href='archive.html'>logsOverSize()</a></code>. Normally, its value does not need
+to be set but may be convenient in rare cases (such as full scale tests).
+Default value set to 1 Mb (1024 * 1000)</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -152,6 +164,7 @@ initiated by a scheduler</p>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
