@@ -78,7 +78,7 @@ as helpers within the raplog package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">raplog</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -185,7 +185,7 @@ numbered.</p>
 
 <span class='co'># List all files (with alphanumeric names) larger than 1 Kb in tempdir()</span>
 <span class='fu'>logsOverSize</span>(<span class='kw'>logPath</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='kw'>overSize</span> <span class='kw'>=</span> <span class='fl'>1024</span>,
-<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"^[1-9a-zA-Z]"</span>)</div><div class='output co'>#&gt; [1] "file38204d825f7.so"              "libloc_173_c7ca16f4b15c0cc.rds" 
+<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"^[1-9a-zA-Z]"</span>)</div><div class='output co'>#&gt; [1] "file3ac249fdc07.so"              "libloc_173_c7ca16f4b15c0cc.rds" 
 #&gt; [3] "libloc_183_27f76f287b614bfa.rds"</div><div class='input'>
 <span class='co'># Archive a file under the same directory</span>
 <span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(), <span class='st'>".csv"</span>)
