@@ -1,6 +1,6 @@
 Package: raplog
 Title: Log Use of Applications and Reports at Rapporteket
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person(given = "Are",
            family = "Edvardsen",
@@ -26,4 +26,4 @@ Imports:
     rapbase,
     rio
 Remotes:
-    Rapporteket/rapbase@rel
+    Rapporteket/rapbase
