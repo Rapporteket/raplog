@@ -1,6 +1,6 @@
 Package: raplog
 Title: Log Use of Applications and Reports at Rapporteket
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person(given = "Are",
            family = "Edvardsen",
@@ -15,7 +15,7 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 2.1.0),
     covr
