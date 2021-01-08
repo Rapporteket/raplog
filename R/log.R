@@ -1,7 +1,3 @@
-createLog <- function(name, target) {
-
-}
-
 #' Append a log record
 #'
 #' Append a record to the log. Normally, this function will not be called from
