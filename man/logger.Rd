@@ -9,11 +9,21 @@
 \usage{
 appLogger(session, msg = "No message provided")
 
-repLogger(session, msg = "No message provided",
-  .topcall = sys.call(-1), .topenv = parent.frame())
+repLogger(
+  session,
+  msg = "No message provided",
+  .topcall = sys.call(-1),
+  .topenv = parent.frame()
+)
 
-subLogger(author, registryName, reshId, msg = "No message provided",
-  .topcall = sys.call(-1), .topenv = parent.frame())
+subLogger(
+  user,
+  registryName,
+  reshId,
+  msg = "No message provided",
+  .topcall = sys.call(-1),
+  .topenv = parent.frame()
+)
 }
 \arguments{
 \item{session}{Shiny session object to be used for getting user data.
@@ -31,15 +41,15 @@ the function call with arguments. Default value is \code{sys.call(-1)}}
 provide package name (\emph{i.e.} register) this function was called from.
 Default value is \code{parent.frame()}}
 
-\item{author}{String providing author of a report. Only used for automated
+\item{user}{String providing owner of an automated report. Only used for
 subscription reports that are run outside a shiny session.}
 
 \item{registryName}{String providing registry name. Only used for automated
-subscription reports that are run outside a shiny session.}
+reports that are run outside a shiny session.}
 
 \item{reshId}{String providing the organization id of the (subscription)
-report author. Only used for automated subscription reports that are run
-outside a shiny session.}
+report author. Only used for automated reports that are run outside a shiny
+session.}
 }
 \value{
 Returns nothing but calls a logging appender
@@ -56,7 +66,8 @@ The below fields will be appended to the log, in the following order:
 \enumerate{
 \item \code{time}: date-time as event is logged as
 \code{format(time, "\%Y-\%m-\%d \%H:\%M:\%S")}
-\item \code{user}: username as found in the shiny session object
+\item \code{user}: username as found in the shiny session object or as
+provided by function argument (\code{subLogger()})
 \item \code{name}: full name of user as found in the shiny session object
 \item \code{group}: users group membership as provided by the shiny
 session object. Normally, this will correspond to the registry the user
@@ -73,6 +84,11 @@ called (only provided by \code{repLogger()})
 called (only provided by \code{repLogger()})
 \item message: an optional message defined as argument to the function
 }
+
+The \code{subLogger()} function is a special case to be used for automated
+reports. Since such reports are run outside a reactive (shiny) context
+shiny session data are not available to the logger. Hence, logging data
+must be provided as arguments directly.
 }
 \note{
 Pseudo code of how \code{appLogger()} may be implemented:
@@ -122,6 +138,6 @@ repLogger(list())
 }
 \donttest{
 # Depend on the environment variable R_RAP_CONFIG_PATH being set
-subLogger(author = "Rapporteket", registryName = "rapbase", reshId = "999999")
+subLogger(user = "ttester", registryName = "rapbase", reshId = "999999")
 }
 }

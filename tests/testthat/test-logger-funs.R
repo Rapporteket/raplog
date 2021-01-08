@@ -29,7 +29,7 @@ test_that("logging is performed at report level", {
 })
 
 test_that("logging can be made by (automated) reports outdise session", {
-  expect_silent(subLogger(author = "Rapporteket", registryName = "rapbase",
+  expect_silent(subLogger(user = "ttest", registryName = "rapbase",
                           reshId = "999999"))
 })
 
