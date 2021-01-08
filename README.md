@@ -1,10 +1,11 @@
 # raplog <img src="man/figures/logo.svg" align="right" height="150" />
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/Rapporteket/raplog.svg?branch=master)](https://travis-ci.org/Rapporteket/raplog)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/Rapporteket/raplog?branch=master&svg=true)](https://ci.appveyor.com/project/Rapporteket/raplog)
-[![Codecov test coverage](https://codecov.io/gh/Rapporteket/raplog/branch/master/graph/badge.svg)](https://codecov.io/gh/Rapporteket/raplog?branch=master)
+[![Version](https://img.shields.io/github/v/release/rapporteket/raplog?sort=semver)](https://github.com/rapporteket/raplog/releases)
+[![R build status](https://github.com/Rapporteket/raplog/workflows/R-CMD-check/badge.svg)](https://github.com/Rapporteket/raplog/actions)
+[![codecov.io](https://codecov.io/github/Rapporteket/raplog/raplog.svg?branch=master)](https://codecov.io/github/Rapporteket/raplog?branch=master)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Doc](https://img.shields.io/badge/Doc--grey.svg)](https://rapporteket.github.io/raplog/)
 <!-- badges: end -->
 
 raplog provides logging for registries and underlying reports at Rapporteket. The purpose of raplog is NOT logging of how your code works (_e.g._ for code debugging) but rather the use of reports (statistics and auditing). See also the [raplog site](https://rapporteket.github.io/raplog/)
