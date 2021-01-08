@@ -63,6 +63,11 @@ jobs:
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
 
+      - name: Install macOS system dependencies
+        if: matrix.config.os == 'macOS-latest'
+        run: |
+          brew install mariadb-connector-c
+
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
