@@ -98,7 +98,7 @@ getSessionDataRep <- function(session) {
 #' To be used for logging at application level (\emph{i.e.} when a shiny
 #' session is started) or at report level (\emph{i.e.} each time a report is
 #' run). Logging of single report events should be made from reactive
-#' enviroments within the shiny server function or from within the (report)
+#' environments within the shiny server function or from within the (report)
 #' functions used by the same reactive environments.
 #'
 #' The below fields will be appended to the log, in the following order:
@@ -124,10 +124,12 @@ getSessionDataRep <- function(session) {
 #'   \item message: an optional message defined as argument to the function
 #' }
 #'
-#' The \code{subLogger()} function is a special case to be used for automated
+#' The \code{autLogger()} function is a special case to be used for automated
 #' reports. Since such reports are run outside a reactive (shiny) context
 #' shiny session data are not available to the logger. Hence, logging data
-#' must be provided as arguments directly.
+#' must be provided as arguments directly. As of rapbase version 1.12.0 logging
+#' of automated reports are already taken care of. Hence, this function should
+#' not be applied per registry application.
 #'
 #' @note Pseudo code of how \code{appLogger()} may be implemented:
 #' \preformatted{
@@ -171,6 +173,8 @@ getSessionDataRep <- function(session) {
 #' something sensible
 #' @param msg String providing a user defined message to be added to the log
 #' record. Default value is 'No message provided'
+#' @param author String providing author of a report. Only used for automated
+#' subscription reports that are run outside a shiny session. Deprecated
 #' @param user String providing owner of an automated report. Only used for
 #' subscription reports that are run outside a shiny session.
 #' @param registryName String providing registry name. Only used for automated
@@ -185,7 +189,7 @@ getSessionDataRep <- function(session) {
 #' Default value is \code{parent.frame()}
 #'
 #' @name logger
-#' @aliases appLogger repLogger subLogger
+#' @aliases appLogger repLogger subLogger autLogger
 #'
 #' @return Returns nothing but calls a logging appender
 NULL
@@ -239,10 +243,45 @@ repLogger <- function(session, msg = "No message provided",
 #' @examples
 #' \donttest{
 #' # Depend on the environment variable R_RAP_CONFIG_PATH being set
-#' subLogger(user = "ttester", registryName = "rapbase", reshId = "999999")
+#' subLogger(author = "Rapporteket", registryName = "rapbase", reshId = "999999")
 #' }
 
-subLogger <- function(user, registryName, reshId,
+subLogger <- function(author, registryName, reshId,
+                      msg = "No message provided", .topcall = sys.call(-1),
+                      .topenv = parent.frame()) {
+
+  lifecycle::deprecate_warn(
+    "0.2.0", "raplog::subLogger()", "raplog::autLogger()",
+    details = paste("As of version 1.12.0 of rapbase all logging of automated",
+                    "reports is taken care of by rapbase. Per application",
+                    "logging of automated reports shold therefore be removed.")
+  )
+
+  name <- "reportLog"
+  parent_environment <- environmentName(topenv(.topenv))
+  parent_call <- deparse(.topcall, width.cutoff = 160L, nlines = 1L)
+  content <- c(list(user = "NA",
+                    name = author,
+                    group = registryName,
+                    role = "NA",
+                    resh_id = reshId),
+               list(environment=parent_environment,
+                    call=parent_call,
+                    message=msg))
+  event <- makeLogRecord(content, format = "csv")
+  appendLog(event, name, target = "file", format = "csv")
+}
+
+
+#' @rdname logger
+#' @export
+#' @examples
+#' \donttest{
+#' # Depend on the environment variable R_RAP_CONFIG_PATH being set
+#' autLogger(user = "ttester", registryName = "rapbase", reshId = "999999")
+#' }
+
+autLogger <- function(user, registryName, reshId,
                       msg = "No message provided", .topcall = sys.call(-1),
                       .topenv = parent.frame()) {
 

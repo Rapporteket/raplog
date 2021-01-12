@@ -3,6 +3,7 @@
 export(appLogger)
 export(appendLog)
 export(archiveLog)
+export(autLogger)
 export(cleanArchive)
 export(createArchive)
 export(logsOverSize)

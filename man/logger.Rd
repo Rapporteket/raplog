@@ -5,6 +5,7 @@
 \alias{appLogger}
 \alias{repLogger}
 \alias{subLogger}
+\alias{autLogger}
 \title{Log user events in shiny applications at Rapporteket}
 \usage{
 appLogger(session, msg = "No message provided")
@@ -17,6 +18,15 @@ repLogger(
 )
 
 subLogger(
+  author,
+  registryName,
+  reshId,
+  msg = "No message provided",
+  .topcall = sys.call(-1),
+  .topenv = parent.frame()
+)
+
+autLogger(
   user,
   registryName,
   reshId,
@@ -41,8 +51,8 @@ the function call with arguments. Default value is \code{sys.call(-1)}}
 provide package name (\emph{i.e.} register) this function was called from.
 Default value is \code{parent.frame()}}
 
-\item{user}{String providing owner of an automated report. Only used for
-subscription reports that are run outside a shiny session.}
+\item{author}{String providing author of a report. Only used for automated
+subscription reports that are run outside a shiny session. Deprecated}
 
 \item{registryName}{String providing registry name. Only used for automated
 reports that are run outside a shiny session.}
@@ -50,6 +60,9 @@ reports that are run outside a shiny session.}
 \item{reshId}{String providing the organization id of the (subscription)
 report author. Only used for automated reports that are run outside a shiny
 session.}
+
+\item{user}{String providing owner of an automated report. Only used for
+subscription reports that are run outside a shiny session.}
 }
 \value{
 Returns nothing but calls a logging appender
@@ -58,7 +71,7 @@ Returns nothing but calls a logging appender
 To be used for logging at application level (\emph{i.e.} when a shiny
 session is started) or at report level (\emph{i.e.} each time a report is
 run). Logging of single report events should be made from reactive
-enviroments within the shiny server function or from within the (report)
+environments within the shiny server function or from within the (report)
 functions used by the same reactive environments.
 }
 \details{
@@ -85,10 +98,12 @@ called (only provided by \code{repLogger()})
 \item message: an optional message defined as argument to the function
 }
 
-The \code{subLogger()} function is a special case to be used for automated
+The \code{autLogger()} function is a special case to be used for automated
 reports. Since such reports are run outside a reactive (shiny) context
 shiny session data are not available to the logger. Hence, logging data
-must be provided as arguments directly.
+must be provided as arguments directly. As of rapbase version 1.12.0 logging
+of automated reports are already taken care of. Hence, this function should
+not be applied per registry application.
 }
 \note{
 Pseudo code of how \code{appLogger()} may be implemented:
@@ -138,6 +153,10 @@ repLogger(list())
 }
 \donttest{
 # Depend on the environment variable R_RAP_CONFIG_PATH being set
-subLogger(user = "ttester", registryName = "rapbase", reshId = "999999")
+subLogger(author = "Rapporteket", registryName = "rapbase", reshId = "999999")
+}
+\donttest{
+# Depend on the environment variable R_RAP_CONFIG_PATH being set
+autLogger(user = "ttester", registryName = "rapbase", reshId = "999999")
 }
 }
