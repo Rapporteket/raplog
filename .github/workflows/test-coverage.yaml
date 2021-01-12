@@ -43,6 +43,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          remotes::install_github("Rapporteket/rapbase", ref = "ver-1.12")
           install.packages(c("remotes"))
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("covr")
