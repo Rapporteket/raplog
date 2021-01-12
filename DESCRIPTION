@@ -22,8 +22,9 @@ Suggests:
 URL: https://github.com/Rapporteket/raplog
 BugReports: https://github.com/Rapporteket/raplog/issues
 Imports: 
-    utils,
-    rapbase,
-    rio
+    lifecycle,
+    rapbase (>= 1.12.0),
+    rio,
+    utils
 Remotes:
     Rapporteket/rapbase
