@@ -19,12 +19,12 @@ attr(session, "class") <- "ShinySession"
 
 
 test_that("logging is performed at application level", {
-  expect_silent(appLogger(session))
+  expect_warning(appLogger(session))
   expect_true(file.exists(file.path(tempdir, "appLog.csv")))
 })
 
 test_that("logging is performed at report level", {
-  expect_silent(repLogger(session))
+  expect_warning(repLogger(session))
   expect_true(file.exists(file.path(tempdir, "reportLog.csv")))
 })
 

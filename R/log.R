@@ -205,6 +205,14 @@ NULL
 
 appLogger <- function(session, msg = "No message provided") {
 
+  lifecycle::deprecate_warn(
+    "0.2.0", "appLogger()", "rapbase::appLogger()",
+    details = paste("From rabase version 1.12.0 on all logging functions are",
+                    "provided by rapbase. Please change your logging function",
+                    "calls accordingly when upgrading to rapbase versions >=",
+                    "1.12.0.")
+  )
+
   name <- "appLog"
   content <- c(getSessionData(session), list(message=msg))
   event <- makeLogRecord(content, format = "csv")
@@ -224,6 +232,14 @@ appLogger <- function(session, msg = "No message provided") {
 
 repLogger <- function(session, msg = "No message provided",
                       .topcall = sys.call(-1), .topenv = parent.frame()) {
+
+  lifecycle::deprecate_warn(
+    "0.2.0", "repLogger()", "rapbase::repLogger()",
+    details = paste("From rabase version 1.12.0 on all logging functions are",
+                    "provided by rapbase. Please change your logging function",
+                    "calls accordingly when upgrading to rapbase versions >=",
+                    "1.12.0.")
+  )
 
   name <- "reportLog"
   parent_environment <- environmentName(topenv(.topenv))
