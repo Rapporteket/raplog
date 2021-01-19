@@ -175,8 +175,6 @@ getSessionDataRep <- function(session) {
 #' record. Default value is 'No message provided'
 #' @param author String providing author of a report. Only used for automated
 #' subscription reports that are run outside a shiny session. Deprecated
-#' @param user String providing owner of an automated report. Only used for
-#' subscription reports that are run outside a shiny session.
 #' @param registryName String providing registry name. Only used for automated
 #' reports that are run outside a shiny session.
 #' @param reshId String providing the organization id of the (subscription)
@@ -288,32 +286,3 @@ subLogger <- function(author, registryName, reshId,
   event <- makeLogRecord(content, format = "csv")
   appendLog(event, name, target = "file", format = "csv")
 }
-
-
-#' @rdname logger
-#' @export
-#' @examples
-#' \donttest{
-#' # Depend on the environment variable R_RAP_CONFIG_PATH being set
-#' autLogger(user = "ttester", registryName = "rapbase", reshId = "999999")
-#' }
-
-autLogger <- function(user, registryName, reshId,
-                      msg = "No message provided", .topcall = sys.call(-1),
-                      .topenv = parent.frame()) {
-
-  name <- "reportLog"
-  parent_environment <- environmentName(topenv(.topenv))
-  parent_call <- deparse(.topcall, width.cutoff = 160L, nlines = 1L)
-  content <- c(list(user = user,
-                    name = "NA",
-                    group = registryName,
-                    role = "NA",
-                    resh_id = reshId),
-               list(environment=parent_environment,
-                    call=parent_call,
-                    message=msg))
-  event <- makeLogRecord(content, format = "csv")
-  appendLog(event, name, target = "file", format = "csv")
-}
-

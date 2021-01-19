@@ -25,15 +25,6 @@ subLogger(
   .topcall = sys.call(-1),
   .topenv = parent.frame()
 )
-
-autLogger(
-  user,
-  registryName,
-  reshId,
-  msg = "No message provided",
-  .topcall = sys.call(-1),
-  .topenv = parent.frame()
-)
 }
 \arguments{
 \item{session}{Shiny session object to be used for getting user data.
@@ -60,9 +51,6 @@ reports that are run outside a shiny session.}
 \item{reshId}{String providing the organization id of the (subscription)
 report author. Only used for automated reports that are run outside a shiny
 session.}
-
-\item{user}{String providing owner of an automated report. Only used for
-subscription reports that are run outside a shiny session.}
 }
 \value{
 Returns nothing but calls a logging appender
@@ -154,9 +142,5 @@ repLogger(list())
 \donttest{
 # Depend on the environment variable R_RAP_CONFIG_PATH being set
 subLogger(author = "Rapporteket", registryName = "rapbase", reshId = "999999")
-}
-\donttest{
-# Depend on the environment variable R_RAP_CONFIG_PATH being set
-autLogger(user = "ttester", registryName = "rapbase", reshId = "999999")
 }
 }

@@ -28,11 +28,6 @@ test_that("logging is performed at report level", {
   expect_true(file.exists(file.path(tempdir, "reportLog.csv")))
 })
 
-test_that("logging can be made by (automated) reports outdise session", {
-  expect_silent(autLogger(user = "ttest", registryName = "rapbase",
-                          reshId = "999999"))
-})
-
 test_that("deprecated subLogger provides warning", {
   expect_warning(subLogger(author = "Rapporteket", registryName = "rapbase",
                            reshId = "999999"))
