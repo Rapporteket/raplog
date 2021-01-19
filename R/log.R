@@ -251,10 +251,11 @@ subLogger <- function(author, registryName, reshId,
                       .topenv = parent.frame()) {
 
   lifecycle::deprecate_warn(
-    "0.2.0", "raplog::subLogger()", "raplog::autLogger()",
-    details = paste("As of version 1.12.0 of rapbase all logging of automated",
+    "0.2.0", "raplog::subLogger()", "rapbase::autLogger()",
+    details = paste("As of rabase version 1.12.0 all logging of automated",
                     "reports is taken care of by rapbase. Per application",
-                    "logging of automated reports shold therefore be removed.")
+                    "logging of automated reports shold therefore be removed",
+                    "when upgrading to rapbase versions >= 1.12.0.")
   )
 
   name <- "reportLog"
