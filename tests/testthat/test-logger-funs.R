@@ -19,18 +19,18 @@ attr(session, "class") <- "ShinySession"
 
 
 test_that("logging is performed at application level", {
-  expect_silent(appLogger(session))
+  expect_warning(appLogger(session))
   expect_true(file.exists(file.path(tempdir, "appLog.csv")))
 })
 
 test_that("logging is performed at report level", {
-  expect_silent(repLogger(session))
+  expect_warning(repLogger(session))
   expect_true(file.exists(file.path(tempdir, "reportLog.csv")))
 })
 
-test_that("logging can be made by (automated) reports outdise session", {
-  expect_silent(subLogger(author = "Rapporteket", registryName = "rapbase",
-                          reshId = "999999"))
+test_that("deprecated subLogger provides warning", {
+  expect_warning(subLogger(author = "Rapporteket", registryName = "rapbase",
+                           reshId = "999999"))
 })
 
 test_that("formatter returns error upon non-existing format", {

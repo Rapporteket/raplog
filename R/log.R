@@ -1,7 +1,3 @@
-createLog <- function(name, target) {
-
-}
-
 #' Append a log record
 #'
 #' Append a record to the log. Normally, this function will not be called from
@@ -102,14 +98,15 @@ getSessionDataRep <- function(session) {
 #' To be used for logging at application level (\emph{i.e.} when a shiny
 #' session is started) or at report level (\emph{i.e.} each time a report is
 #' run). Logging of single report events should be made from reactive
-#' enviroments within the shiny server function or from within the (report)
+#' environments within the shiny server function or from within the (report)
 #' functions used by the same reactive environments.
 #'
 #' The below fields will be appended to the log, in the following order:
 #' \enumerate{
 #'   \item \code{time}: date-time as event is logged as
 #'     \code{format(time, "\%Y-\%m-\%d \%H:\%M:\%S")}
-#'   \item \code{user}: username as found in the shiny session object
+#'   \item \code{user}: username as found in the shiny session object or as
+#'   provided by function argument (\code{subLogger()})
 #'   \item \code{name}: full name of user as found in the shiny session object
 #'   \item \code{group}: users group membership as provided by the shiny
 #'     session object. Normally, this will correspond to the registry the user
@@ -126,6 +123,13 @@ getSessionDataRep <- function(session) {
 #'     called (only provided by \code{repLogger()})
 #'   \item message: an optional message defined as argument to the function
 #' }
+#'
+#' The \code{autLogger()} function is a special case to be used for automated
+#' reports. Since such reports are run outside a reactive (shiny) context
+#' shiny session data are not available to the logger. Hence, logging data
+#' must be provided as arguments directly. As of rapbase version 1.12.0 logging
+#' of automated reports are already taken care of. Hence, this function should
+#' not be applied per registry application.
 #'
 #' @note Pseudo code of how \code{appLogger()} may be implemented:
 #' \preformatted{
@@ -170,12 +174,12 @@ getSessionDataRep <- function(session) {
 #' @param msg String providing a user defined message to be added to the log
 #' record. Default value is 'No message provided'
 #' @param author String providing author of a report. Only used for automated
-#' subscription reports that are run outside a shiny session.
+#' subscription reports that are run outside a shiny session. Deprecated
 #' @param registryName String providing registry name. Only used for automated
-#' subscription reports that are run outside a shiny session.
+#' reports that are run outside a shiny session.
 #' @param reshId String providing the organization id of the (subscription)
-#' report author. Only used for automated subscription reports that are run
-#' outside a shiny session.
+#' report author. Only used for automated reports that are run outside a shiny
+#' session.
 #' @param .topcall Parent call (if any) calling this function. Used to provide
 #' the function call with arguments. Default value is \code{sys.call(-1)}
 #' @param .topenv Name of the parent environment calling this function. Used to
@@ -183,7 +187,7 @@ getSessionDataRep <- function(session) {
 #' Default value is \code{parent.frame()}
 #'
 #' @name logger
-#' @aliases appLogger repLogger subLogger
+#' @aliases appLogger repLogger subLogger autLogger
 #'
 #' @return Returns nothing but calls a logging appender
 NULL
@@ -198,6 +202,14 @@ NULL
 #' }
 
 appLogger <- function(session, msg = "No message provided") {
+
+  lifecycle::deprecate_warn(
+    "0.2.0", "appLogger()", "rapbase::appLogger()",
+    details = paste("From rabase version 1.12.0 on all logging functions are",
+                    "provided by rapbase. Please change your logging function",
+                    "calls accordingly when upgrading to rapbase versions >=",
+                    "1.12.0.")
+  )
 
   name <- "appLog"
   content <- c(getSessionData(session), list(message=msg))
@@ -218,6 +230,14 @@ appLogger <- function(session, msg = "No message provided") {
 
 repLogger <- function(session, msg = "No message provided",
                       .topcall = sys.call(-1), .topenv = parent.frame()) {
+
+  lifecycle::deprecate_warn(
+    "0.2.0", "repLogger()", "rapbase::repLogger()",
+    details = paste("From rabase version 1.12.0 on all logging functions are",
+                    "provided by rapbase. Please change your logging function",
+                    "calls accordingly when upgrading to rapbase versions >=",
+                    "1.12.0.")
+  )
 
   name <- "reportLog"
   parent_environment <- environmentName(topenv(.topenv))
@@ -244,6 +264,14 @@ subLogger <- function(author, registryName, reshId,
                       msg = "No message provided", .topcall = sys.call(-1),
                       .topenv = parent.frame()) {
 
+  lifecycle::deprecate_warn(
+    "0.2.0", "raplog::subLogger()", "rapbase::autLogger()",
+    details = paste("As of rabase version 1.12.0 all logging of automated",
+                    "reports is taken care of by rapbase. Per application",
+                    "logging of automated reports shold therefore be removed",
+                    "when upgrading to rapbase versions >= 1.12.0.")
+  )
+
   name <- "reportLog"
   parent_environment <- environmentName(topenv(.topenv))
   parent_call <- deparse(.topcall, width.cutoff = 160L, nlines = 1L)
@@ -258,4 +286,3 @@ subLogger <- function(author, registryName, reshId,
   event <- makeLogRecord(content, format = "csv")
   appendLog(event, name, target = "file", format = "csv")
 }
-
